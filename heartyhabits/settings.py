@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'phonenumber_field',
 
 
+	'myadmin.apps.MyadminConfig',
     'users.apps.UsersConfig',
 ]
 
