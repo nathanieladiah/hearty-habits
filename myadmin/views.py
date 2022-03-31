@@ -130,6 +130,13 @@ def deleteUser(request, pk):
 # Treat control
 
 @login_required(login_url='login')
+def treats_list(request):
+	treats = Treat.objects.all()
+	context = {'treats': treats}
+
+	return render(request, 'myadmin/treats.html', context)
+
+@login_required(login_url='login')
 def addNewTreat(request):
 	form = TreatForm()
 
@@ -140,3 +147,25 @@ def addNewTreat(request):
 			return redirect('dashboard')
 	
 	return render(request, 'myadmin/treat_form.html', {'form': form})
+
+@login_required(login_url='login')
+def updateTreat(request, pk):
+	treat = Treat.objects.get(id=pk)
+	form = TreatForm(instance=treat)
+
+	if request.method == 'POST':
+		form = TreatForm(request.POST, instance=treat)
+		if form.is_valid():
+			form.save()
+			return redirect('treat-list')
+
+	return render(request, 'myadmin/treat_form.html', {'form': form})
+
+
+@login_required(login_url='login')
+def deleteTreat(request, pk):
+	treat = Treat.objects.get(id=pk)
+
+	if request.method == 'POST':
+		treat.delete()
+		return redirect('treat-list')

@@ -1,0 +1,52 @@
+{% extends 'myadmin/main.html' %}
+{% load static %}
+
+{% block title %}Treats{% endblock %}
+
+{% block heading %}Treat List{% endblock %}
+
+{% block content %}
+<div class="card shadow mb-4">
+	<div class="card-header py-3">
+		<h6 class="m-0 font-weight-bold text-primary">Treats</h6>
+	</div>
+	<div class="card-body">
+		<div class="table-responsive">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th class="text-right">Price</th>
+						<th>Animal</th>
+						<th class="text-center">Actions</th>
+					</tr>
+				</thead>
+			
+				<tbody>
+					{% for treat in treats %}
+					<tr>
+						<td><a href="{% url 'update-treat' treat.id %}" class="text-reset text-decoration-none">
+							{{treat.name}}</td>
+						<td class="text-right">${{treat.price}}</td>
+						<td>{{treat.animal}}</td>
+						<td class="d-flex justify-content-around">
+							<a class="" href="{% url 'update-treat' treat.id %}"><i class="far fa-edit"></i></a>
+
+							<a class="text-danger delete-btn" href="#" data-treat={{treat.id}} data-toggle="modal" data-target="#deleteTreatModal">
+								<i class="far fa-trash-alt"></i></a>
+						</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+{% include 'myadmin/components/delete_treat_modal.html' %}
+
+{% endblock %}
+
+{% block page_scripts %}
+	<script src="{% static 'myadmin/js/delete_treats.js' %}"></script>
+{% endblock %}
