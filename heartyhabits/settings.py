@@ -40,8 +40,10 @@ INSTALLED_APPS = [
 
     # 3rd party apps
     'phonenumber_field',
+    'rest_framework',
 
 
+    'api.apps.ApiConfig',
 	'myadmin.apps.MyadminConfig',
     'users.apps.UsersConfig',
 ]
@@ -137,3 +139,15 @@ MEDIA_ROOT = BASE_DIR / 'static/images'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        # The order here matters
+        "rest_framework.authentication.SessionAuthentication",
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        "rest_framework.permissions.IsAuthenticatedOrReadOnly"
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 10
+}
