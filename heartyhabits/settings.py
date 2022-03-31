@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # 3rd party apps
+    'crispy_forms',
     'phonenumber_field',
     'rest_framework',
     'storages',
@@ -48,8 +49,11 @@ INSTALLED_APPS = [
 
     'api.apps.ApiConfig',
 	'myadmin.apps.MyadminConfig',
+    'store.apps.StoreConfig',
     'users.apps.UsersConfig',
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 AUTH_USER_MODEL = 'users.User'
 

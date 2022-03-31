@@ -10,4 +10,6 @@ urlpatterns = [
 	path('users/create/', views.createUser, name='create-user'),
 	path('users/update/<str:pk>/', views.updateUser, name='update-user'),
 	path('users/delete/<str:pk>/', views.deleteUser, name='delete-user'),
+
+	path('treats/create/', views.addNewTreat, name='create-treat'),
 ]

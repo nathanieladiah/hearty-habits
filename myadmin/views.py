@@ -11,6 +11,9 @@ User = get_user_model()
 
 from users.forms import UserForm
 from users.models import Role
+from store.models import Treat
+
+from .forms import TreatForm
 
 @login_required(login_url='login')
 def dashboard(request):
@@ -121,3 +124,19 @@ def deleteUser(request, pk):
 	if request.method == 'POST':
 		user.delete()
 		return redirect('user-list')
+
+
+
+# Treat control
+
+@login_required(login_url='login')
+def addNewTreat(request):
+	form = TreatForm()
+
+	if request.method == 'POST':
+		form = TreatForm(request.POST)
+		if form.is_valid():
+			form.save()
+			return redirect('dashboard')
+	
+	return render(request, 'myadmin/treat_form.html', {'form': form})
