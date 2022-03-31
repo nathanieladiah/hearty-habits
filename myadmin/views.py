@@ -1,7 +1,11 @@
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect, render
+
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
 
 User = get_user_model()
 
@@ -56,6 +60,7 @@ def createUser(request):
 			email=data['email'],
 			password=password
 		)
+
 		user.avatar = image
 		user.first_name = data['first_name']
 		user.last_name = data['last_name']
@@ -65,18 +70,28 @@ def createUser(request):
 
 		user.save()
 
-		# Check if the other fields are present:
-		# do something like for field in data:
-		# 	if not username/email and exists then update the user
+		template = render_to_string('myadmin/email_template.html', {
+			'name': user.first_name,
+			'username': user.username,
+			'email': user.email,
+			'password': password
+		})
+
+		# After a user is created, need to send an email to that user with their
+		# password and later on a link to change it.
+		email = EmailMessage(
+			'Account Created',
+			template,
+			settings.EMAIL_HOST_USER,
+			[user.email]
+		)
+
+		email.fail_silently=False
+		email.send()
 
 		return redirect('dashboard')
 
 	return render(request, 'myadmin/user_form.html', {'form': form})
-
-	# johny: FGc6SpUpdg
-	# kim: FaaxqumXua
-	# dp: qPM9HRFtfa
-	# ac: t43P93SnzA
 
 @login_required(login_url='login')
 def updateUser(request, pk):
