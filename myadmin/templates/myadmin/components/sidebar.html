@@ -36,9 +36,9 @@
 		<div class="collapse" id="collapseUsers" aria-labelledby="UserDetails" data-parent="#accordionSidebar">
 			<div class="bg-white py-2 collapse-inner rounded">
 				<h6 class="collapse-header">Control Users</h6>
-				<a href="" class="collapse-item">Users List</a>
+				<a href="{% url 'user-list' %}" class="collapse-item">Users List</a>
 				<!-- <a href="#" class="collapse-item">Edit User</a> -->
-				<a href="" class="collapse-item">Create User</a>
+				<a href="{% url 'create-user' %}" class="collapse-item">Create User</a>
 				<!-- create a user with random generated password and email the user -->
 			</div>
 		</div>

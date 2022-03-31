@@ -1,0 +1,55 @@
+{% extends 'myadmin/main.html' %}
+{% load static %}
+
+{% block title %}User List{% endblock %}
+
+{% block heading %}User List{% endblock %}
+
+{% block content %}
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+	<div class="card-header py-3">
+		<h6 class="m-0 font-weight-bold text-primary">Users</h6>
+	</div>
+	<div class="card-body">
+		<div class="table-responsive">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>User</th>
+						<th>Email</th>
+						<th>Role</th>
+						<th class="text-right">Joined Date</th>
+						<th class="text-center">Actions</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					{% for user in users %}
+					<tr>
+						<td><a href="{% url 'update-user' user.id %}" class="text-reset text-decoration-none">{{user.username}}</a></td>
+						<td>{{user.email}}</td>
+						<td>{{user.role.name}}</td>
+						<td class="text-right">{{user.date_joined|date:"d M Y"}}</td>
+						<td class="d-flex justify-content-around">
+							<a class="" href="{% url 'update-user' user.id %}"><i class="far fa-edit"></i></a>
+
+							<!-- Put the item id in a data-set attribute to access it in javascript and update the modal by inputting the correct url in action -->
+							<a class="text-danger delete-btn" href="#" data-user={{user.id}} data-toggle="modal" data-target="#deleteUserModal">
+								<i class="far fa-trash-alt"></i></a>
+						</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+{% include 'myadmin/components/delete_user_modal.html' %}
+
+{% endblock %}
+
+{% block page_scripts %}
+	<script src="{% static 'myadmin/js/delete_user.js' %}"></script>
+{% endblock %}
