@@ -149,12 +149,13 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 
 # AWS for storing media/files
-AWS_QUERYSTRING_AUTH = False
+if not DEBUG:
+    AWS_QUERYSTRING_AUTH = False
 
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-AWS_ACCESS_KEY_ID = os.environ.get('AWS_ID')
-AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_KEY')
-AWS_STORAGE_BUCKET_NAME = 'heartyhabits'
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    AWS_ACCESS_KEY_ID = os.environ.get('AWS_ID')
+    AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_KEY')
+    AWS_STORAGE_BUCKET_NAME = 'heartyhabits'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
