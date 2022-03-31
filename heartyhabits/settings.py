@@ -21,12 +21,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-)nt-+5jla5y7vy0^q(v6%v58ps92(3ng9*54xsojxp$fuo_vn%'
+# SECRET_KEY = 'django-insecure-)nt-+5jla5y7vy0^q(v6%v58ps92(3ng9*54xsojxp$fuo_vn%'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = (os.environ.get('DEBUG_VALUE') == 'TRUE')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['heartyhabits.herokuapp.com', 'localhost', '0.0.0.0']
 
 
 # Application definition
@@ -93,6 +94,11 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# For heroku or once databases are in the env
+import dj_database_url
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 
 # Password validation
