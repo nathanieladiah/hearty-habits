@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     # 3rd party apps
     'phonenumber_field',
     'rest_framework',
+    'storages',
 
 
     'api.apps.ApiConfig',
@@ -53,6 +54,7 @@ AUTH_USER_MODEL = 'users.User'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -134,7 +136,19 @@ STATICFILES_DIRS = [
     BASE_DIR /'static'
 ]
 
-MEDIA_ROOT = BASE_DIR / 'static/images'
+MEDIA_ROOT = BASE_DIR / 'static/images/uploads'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+
+
+# AWS for storing media/files
+AWS_QUERYSTRING_AUTH = False
+
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_ACCESS_KEY_ID = os.environ.get('AWS_ID')
+AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_KEY')
+AWS_STORAGE_BUCKET_NAME = 'heartyhabits'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
