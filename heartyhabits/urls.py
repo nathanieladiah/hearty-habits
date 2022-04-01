@@ -11,6 +11,7 @@ urlpatterns = [
     path('admin/', include('myadmin.urls')),
     path('api/', include('api.urls')),
     path('contact/', include('contact.urls')),
+    path('store/', include('store.urls')),
     path('users/', include('users.urls')),
 ]
 

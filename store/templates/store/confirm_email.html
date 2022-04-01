@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Order Confirmation</title>
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="container text-center">
+			<h1>Thank you for your order!</h1>
+		</div>
+
+		<p>Order Summary</p>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Product</th> 
+					<th>Qty</th>
+					<th>Price</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>{{order.treat.name}}</td>
+					<td>{{order.count}}</td>
+					<td>${{order.treat.price}}</td>
+				</tr>
+			</tbody>
+		</table>
+
+		Total: ${{order.total}}
+
+		<p>Click the link below to confirm your order</p>
+		<a href="http://localhost:8000{% url 'confirm' order.uuid %}">Confirm</a>
+
+	</div>
+</body>
+</html>
