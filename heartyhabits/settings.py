@@ -49,6 +49,7 @@ INSTALLED_APPS = [
 
     'api.apps.ApiConfig',
     'base.apps.BaseConfig',
+    'contact.apps.ContactConfig',
 	'myadmin.apps.MyadminConfig',
     'store.apps.StoreConfig',
     'users.apps.UsersConfig',
