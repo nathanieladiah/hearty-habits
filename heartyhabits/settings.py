@@ -10,8 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
-from pathlib import Path
 import os
+from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,13 +21,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = 'django-insecure-)nt-+5jla5y7vy0^q(v6%v58ps92(3ng9*54xsojxp$fuo_vn%'
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = 'django-insecure-)nt-+5jla5y7vy0^q(v6%v58ps92(3ng9*54xsojxp$fuo_vn%'
+# SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = (os.environ.get('DEBUG_VALUE') == 'TRUE')
+# DEBUG = (os.environ.get('DEBUG_VALUE') == 'TRUE')
+DEBUG = True
 
-ALLOWED_HOSTS = ['heartyhabits.herokuapp.com', 'localhost', '0.0.0.0']
+ALLOWED_HOSTS = ['heartyhabits.herokuapp.com', 'localhost', '0.0.0.0', '127.0.0.1']
 
 
 # Application definition
@@ -44,7 +45,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'phonenumber_field',
     'rest_framework',
-    'storages',
+    # 'storages',
 
 
     'api.apps.ApiConfig',
@@ -107,9 +108,10 @@ DATABASES = {
 }
 
 # For heroku or once databases are in the env
-import dj_database_url
-db_from_env = dj_database_url.config(conn_max_age=600)
-DATABASES['default'].update(db_from_env)
+# import dj_database_url
+
+# db_from_env = dj_database_url.config(conn_max_age=600)
+# DATABASES['default'].update(db_from_env)
 
 
 # Password validation
@@ -160,13 +162,13 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 
 # AWS for storing media/files
-if not DEBUG:
-    AWS_QUERYSTRING_AUTH = False
+# if not DEBUG:
+#     AWS_QUERYSTRING_AUTH = False
 
-    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-    AWS_ACCESS_KEY_ID = os.environ.get('AWS_ID')
-    AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_KEY')
-    AWS_STORAGE_BUCKET_NAME = 'heartyhabits'
+#     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+#     AWS_ACCESS_KEY_ID = os.environ.get('AWS_ID')
+#     AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_KEY')
+#     AWS_STORAGE_BUCKET_NAME = 'heartyhabits'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
